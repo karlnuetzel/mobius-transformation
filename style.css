@@ -2,6 +2,7 @@ body, html {
     height: 100%;
     margin: 0px;
     padding: 0px;
+    overflow: hidden;
 }
 .container {
     display: grid;
@@ -53,8 +54,8 @@ body, html {
     right: 0;
     bottom: 0;
     left: 0;
-    width: 200px;
-    height: 200px;
+    width: 185px;
+    height: 185px;
     background-color: green;
+    border: solid 5px black;
     opacity: 0.5;
-}
