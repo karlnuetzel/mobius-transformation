@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     var height = $('.quadOne').height();
     var amount = height / 20;
     console.log(amount);
@@ -9,4 +10,10 @@ $(document).ready(function() {
         $('.quadThree').prepend("<div id='grid'></div>");
         $('.quadFour').prepend("<div id='grid'></div>");
     }
+
+    $('.square').animate({
+       right: "-=500"
+    }, 500, function(){
+
+    });
 });
