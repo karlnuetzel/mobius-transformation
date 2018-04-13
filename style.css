@@ -54,8 +54,8 @@ body, html {
     right: 0;
     bottom: 0;
     left: 0;
-    width: 185px;
-    height: 185px;
-    background-color: green;
-    border: solid 5px black;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, darkblue, darkgreen, darkred);
     opacity: 0.5;
+}
