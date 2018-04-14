@@ -25,8 +25,9 @@ $(document).ready(function() {
             x--;
             xN--;
         }
-        var line = drawLine(1.5, 0);
-        walkLine(line);
+        drawCircle(8, 0);
+        //var line = drawLine(1.5, 0);
+        //walkLine(line);
     }
     function getLocation(x, y){
         var name = "_"+x+"_"+y+"";
@@ -72,6 +73,20 @@ $(document).ready(function() {
 
     }
 
+    function drawCircle(r, origin){
+
+        var coordinates = getSquareLocation();
+
+        for (i = 0; i < 360; i++){
+
+            var x = Math.round(r * Math.sin(i)) + origin;
+            var y = Math.round(r * Math.cos(i));
+            console.log(x);
+            console.log(y);
+            var element = getGridElement(x, y);
+            element.css("background-color", "yellow");
+        }
+    }
 
     function drawLine(slope, y){
         var listX = [];
@@ -99,6 +114,8 @@ $(document).ready(function() {
                 var square = getSquareLocation();
                 var newLoc = getCenter(element.attr("class"))
                 var newLocN = getCenter(element.attr("class"))
+
+
 
 
                 var moveX = Math.abs(square.x - newLoc.x);
