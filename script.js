@@ -19,13 +19,14 @@ $(document).ready(function() {
             var coords3 = "_" + xN + "_" + yN + "";
             var coords4 = "_" + x + "_" + yN + "";
             $('.quadOne').prepend("<div id='grid' class='" + coords1 + "'></div>");
-            x--;
-            xN--;
             $('.quadTwo').prepend("<div id='grid' class='" + coords2 + "'></div>");
             $('.quadThree').prepend("<div id='grid' class='" + coords3 + "' ></div>");
             $('.quadFour').prepend("<div id='grid' class='" + coords4 + "'></div>");
+            x--;
+            xN--;
         }
-        drawLine(1,2,6,8);
+        var line = drawLine(1,2,6,8);
+        walkLine(line);
     }
     function getLocation(x, y){
         var name = "_"+x+"_"+y+"";
@@ -60,98 +61,63 @@ $(document).ready(function() {
         return coordinates;
     }
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function walkLine(line){
+        console.log(line.x[0]);
+
+        var inverse = 4;
+
+    }
+
 
     function drawLine(x1, y1, x2, y2){
-        var array = [];
-        var array1 = [];
-        // var origin = getLocation(x1, y1);
-        // var dest = getLocation(x2,y2);
-        //var xM = 3/2;
+        var origin = getLocation(x1, y1);
+        var dest = getLocation(x2,y2);
+        var listX = [];
+        var listY = [];
+        var listXN = [];
+        var listYN = [];
         var yInt = 0;
-        var moveX = 0;
-        var moveY = 0;
-        for (x = 1; x < 21; x++){
-            var xN = (-1)*x;
+        var x = 1;
+        var xN = -1;
+        var num = 1;
+        var numN = 1;
+        while (num < 10.5){
             console.log(xN);
-            var num = 2*x
-            var numN = 2*xN;
-            var location =  num + yInt;
-            var locationN = numN + yInt;
-            var newLocation = Math.round(location);
-            var newLocationN = Math.round(locationN);
-            var element = getGridElement(x, newLocation);
-            var elementN =  getGridElement(xN, newLocationN);
-            element.css("background-color","yellow");
-            elementN.css("background-color","yellow");
-            var square = getSquareLocation();
-            var newLoc = getCenter(element.attr("class"))
-            // console.log("square x" + square.x);
-            moveX = Math.abs(square.x - newLoc.x);
-            moveY = Math.abs(square.y - newLoc.y);
-            if (location > 0){
-                moveY = moveY*(-1);
+            num = x
+            numN = xN;
+            if (num < 10.5) {
+                var location = Math.round(num + yInt);
+                var locationN = Math.round(numN + yInt);
+                var element = getGridElement(x, location);
+                var elementN = getGridElement(xN, locationN);
+                element.css("background-color", "yellow");
+                elementN.css("background-color", "yellow");
 
+
+                var square = getSquareLocation();
+                var newLoc = getCenter(element.attr("class"))
+                var newLocN = getCenter(element.attr("class"))
+
+
+                var moveX = Math.abs(square.x - newLoc.x);
+                var moveY = Math.abs(square.y - newLoc.y);
+                var moveXN = Math.abs(square.x - newLocN.x);
+                var moveYN = Math.abs(square.y - newLocN.y);
+
+                listX.push(moveX);
+                listXN.push(moveXN);
+                listY.push(moveY);
+                listYN.push(moveYN);
+                xN--;
+                x++;
             }
-            $('.square').animate({
-                left: ""+moveX*2+"",
-                top: ""+moveY*2+""
-            }, 100, function () {
-                // var square1 = getSquareLocation();
-                // console.log("square y" + square1.y);
-                // console.log("square x" + square1.x);
-            });
-            xN = (-1)*x;
-
         }
-
-
-
-
-
-        // $('.square').animate({
-        //     left: "+"+array[1]+""
-        // }, 100, function () {});
-        // console.log("square x" + square1.y);
-        // console.log("square x" + square1.x);
-        // var square2 = getSquareLocation();
-        // $('.square').animate({
-        //     left: "+"+array[2]+""
-        // }, 100, function () {});
-        // console.log("square x" + square2.y);
-        // console.log("square x" + square2.x);
-        //
-        // $('.square').animate({
-        //     left: "+"+array[3]+""
-        // }, 100, function () {});
-        // console.log("square x" + square.y);
-        // console.log("square x" + square.x);
-        //
-        // $('.square').animate({
-        //     left: "+"+array[4]+""
-        // }, 100, function () {})
-        // console.log("square x" + square.y);
-        // console.log("square x" + square.x);
-
-
-
-        // moveX = Math.abs(square.x - newLoc.x);
-            // moveY = Math.abs(square.y - newLoc.y);
-            //
-
-
-            // console.log("move x" + moveX);
-            // console.log("move y" + moveY);
-            // // console.log("destX " +dest.x);
-            // // console.log("destY " +dest.y);
-            // console.log("square x " +square.x);
-            // console.log("square y " +square.y);
-            // $('.square').animate({  fake: 200, fake2: 10 }, {
-            //     step: function(now,fx) {
-            //         $(this).css('-webkit-transform','translate('+moveX+'px,'+moveY+'px )');
-            //     },
-            //     duration:'slow'
-            // },'linear');
-
+        var line = {x: listX, y: listY, xN: listXN, yN: listYN};
+        return line;
     }
 
     function translateCurve() {
