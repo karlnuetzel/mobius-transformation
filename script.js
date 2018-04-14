@@ -25,7 +25,7 @@ $(document).ready(function() {
             x--;
             xN--;
         }
-        var line = drawLine(1,2,6,8);
+        var line = drawLine(1.5, 0);
         walkLine(line);
     }
     function getLocation(x, y){
@@ -73,9 +73,7 @@ $(document).ready(function() {
     }
 
 
-    function drawLine(x1, y1, x2, y2){
-        var origin = getLocation(x1, y1);
-        var dest = getLocation(x2,y2);
+    function drawLine(slope, y){
         var listX = [];
         var listY = [];
         var listXN = [];
@@ -85,11 +83,11 @@ $(document).ready(function() {
         var xN = -1;
         var num = 1;
         var numN = 1;
-        while (num < 10.5){
+        while (num < 10.5 && numN < 10.5){
             console.log(xN);
-            num = x
-            numN = xN;
-            if (num < 10.5) {
+            num = slope*x + y;
+            numN = slope*xN + y;
+            if (num < 10.5 && numN < 10.5) {
                 var location = Math.round(num + yInt);
                 var locationN = Math.round(numN + yInt);
                 var element = getGridElement(x, location);
