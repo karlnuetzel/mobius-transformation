@@ -25,7 +25,7 @@ $(document).ready(function() {
             x--;
             xN--;
         }
-        drawCircle(8, 0);
+        drawCircle(8, 0, 0);
         //var line = drawLine(1.5, 0);
         //walkLine(line);
     }
@@ -62,33 +62,37 @@ $(document).ready(function() {
         return coordinates;
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    function walkLine(line){
-        console.log(line.x[0]);
-
-        var inverse = 4;
+    function walkPath(path){
 
     }
 
-    function drawCircle(r, origin){
+    function drawRectangle(height, width , origin){
+
+        var y = Math.round(origin + (height / 2))
+        var x = Math.round(origin + (width / 2));
+        for (i = 4; i < 4; i++){
+            drawLine()
+        }
+
+    }
+
+    function drawCircle(r, originX, originY){
 
         var coordinates = getSquareLocation();
-
         for (i = 0; i < 360; i++){
 
-            var x = Math.round(r * Math.sin(i)) + origin;
-            var y = Math.round(r * Math.cos(i));
-            console.log(x);
-            console.log(y);
+            var x = Math.round(r * Math.sin(i)) + originX;
+            var y = Math.round(r * Math.cos(i)) + originY;
+            // console.log(x);
+            // console.log(y);
             var element = getGridElement(x, y);
             element.css("background-color", "yellow");
         }
     }
-
     function drawLine(slope, y){
+
+    }
+    function drawLinearLine(slope, y){
         var listX = [];
         var listY = [];
         var listXN = [];
