@@ -4,6 +4,7 @@ $(document).ready(function() {
     function init() {
         var x = 20;
         var y = 1;
+
         for (i = 0; i < 200; i++) {
             if (x === 0) {
                 x = 20;
@@ -54,14 +55,15 @@ $(document).ready(function() {
 
     function drawLine(x1, y1, x2, y2){
         var array = [];
+        var array1 = [];
         var origin = getLocation(x1, y1);
         var dest = getLocation(x2,y2);
-        var xM = 6/5;
-        var yInt = 4/5;
+        //var xM = 3/2;
+        var yInt = 0;
         var moveX = 0;
         var moveY = 0;
-        for (x = 1; x < 6; x++){
-            var num = xM * x;
+        for (x = 1; x < 30; x++){
+            var num = Math.sqrt(x);
             var location =  num + yInt;
             var newLocation = Math.round(location);
             var element = getGridElement(x, newLocation);
@@ -70,33 +72,50 @@ $(document).ready(function() {
             var newLoc = getCenter(element.attr("class"))
             console.log("square x" + square.x);
             moveX = Math.abs(square.x - newLoc.x);
-            //array.push(moveX);
+            moveY = Math.abs(square.y - newLoc.y);
+            $('.square').animate({
+                left: "+"+moveX*2+"",
+                top: "-"+moveY*2+""
+            }, 100, function () {
+                var square1 = getSquareLocation();
+                console.log("square y" + square1.y);
+                console.log("square x" + square1.x);
+            });
+
 
         }
-        // console.log(array);
-        // $('.square').animate({
-        //     left: "+"+array[0]+""
-        // }, 100, function () {});
-        // console.log("square x" + square.y);
+
+
+
+
+
         // $('.square').animate({
         //     left: "+"+array[1]+""
         // }, 100, function () {});
-        // console.log("square x" + square.y);
+        // console.log("square x" + square1.y);
+        // console.log("square x" + square1.x);
+        // var square2 = getSquareLocation();
         // $('.square').animate({
         //     left: "+"+array[2]+""
         // }, 100, function () {});
-        // console.log("square x" + square.y);
+        // console.log("square x" + square2.y);
+        // console.log("square x" + square2.x);
+        //
         // $('.square').animate({
         //     left: "+"+array[3]+""
         // }, 100, function () {});
         // console.log("square x" + square.y);
+        // console.log("square x" + square.x);
+        //
         // $('.square').animate({
         //     left: "+"+array[4]+""
         // }, 100, function () {})
         // console.log("square x" + square.y);
-        // var square = getSquareLocation();
+        // console.log("square x" + square.x);
 
-            // moveX = Math.abs(square.x - newLoc.x);
+
+
+        // moveX = Math.abs(square.x - newLoc.x);
             // moveY = Math.abs(square.y - newLoc.y);
             //
 
