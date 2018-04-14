@@ -4,18 +4,26 @@ $(document).ready(function() {
     function init() {
         var x = 20;
         var y = 1;
+        var xN = -1;
+        var yN = -10;
 
         for (i = 0; i < 200; i++) {
             if (x === 0) {
                 x = 20;
+                xN = -1;
                 y++;
+                yN++;
             }
-            var coords = "_" + x + "_" + y + "";
-            $('.quadOne').prepend("<div id='grid' class='" + coords + "'></div>");
+            var coords1 = "_" + x + "_" + y + "";
+            var coords2 = "_" + xN + "_" + y + "";
+            var coords3 = "_" + xN + "_" + yN + "";
+            var coords4 = "_" + x + "_" + yN + "";
+            $('.quadOne').prepend("<div id='grid' class='" + coords1 + "'></div>");
             x--;
-            $('.quadTwo').prepend("<div id='grid'></div>");
-            $('.quadThree').prepend("<div id='grid'></div>");
-            $('.quadFour').prepend("<div id='grid'></div>");
+            xN--;
+            $('.quadTwo').prepend("<div id='grid' class='" + coords2 + "'></div>");
+            $('.quadThree').prepend("<div id='grid' class='" + coords3 + "' ></div>");
+            $('.quadFour').prepend("<div id='grid' class='" + coords4 + "'></div>");
         }
         drawLine(1,2,6,8);
     }
@@ -56,32 +64,43 @@ $(document).ready(function() {
     function drawLine(x1, y1, x2, y2){
         var array = [];
         var array1 = [];
-        var origin = getLocation(x1, y1);
-        var dest = getLocation(x2,y2);
+        // var origin = getLocation(x1, y1);
+        // var dest = getLocation(x2,y2);
         //var xM = 3/2;
         var yInt = 0;
         var moveX = 0;
         var moveY = 0;
-        for (x = 1; x < 30; x++){
-            var num = Math.sqrt(x);
+        for (x = 1; x < 21; x++){
+            var xN = (-1)*x;
+            console.log(xN);
+            var num = 2*x
+            var numN = 2*xN;
             var location =  num + yInt;
+            var locationN = numN + yInt;
             var newLocation = Math.round(location);
+            var newLocationN = Math.round(locationN);
             var element = getGridElement(x, newLocation);
+            var elementN =  getGridElement(xN, newLocationN);
             element.css("background-color","yellow");
+            elementN.css("background-color","yellow");
             var square = getSquareLocation();
             var newLoc = getCenter(element.attr("class"))
-            console.log("square x" + square.x);
+            // console.log("square x" + square.x);
             moveX = Math.abs(square.x - newLoc.x);
             moveY = Math.abs(square.y - newLoc.y);
-            $('.square').animate({
-                left: "+"+moveX*2+"",
-                top: "-"+moveY*2+""
-            }, 100, function () {
-                var square1 = getSquareLocation();
-                console.log("square y" + square1.y);
-                console.log("square x" + square1.x);
-            });
+            if (location > 0){
+                moveY = moveY*(-1);
 
+            }
+            $('.square').animate({
+                left: ""+moveX*2+"",
+                top: ""+moveY*2+""
+            }, 100, function () {
+                // var square1 = getSquareLocation();
+                // console.log("square y" + square1.y);
+                // console.log("square x" + square1.x);
+            });
+            xN = (-1)*x;
 
         }
 
