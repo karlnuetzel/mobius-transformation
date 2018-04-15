@@ -27,7 +27,9 @@ $(document).ready(function() {
             xN--;
         }
         //call functions here
-        drawRectangle(10, 5, -4, -4)
+        drawRectangle(10, 20, 1, -10)
+        drawCircle(5, 0, 0);
+        drawLine(-10,-20,10,20);
     }
     function getLocation(x, y){
 
@@ -94,8 +96,8 @@ $(document).ready(function() {
     function drawLine(x1, y1, x2, y2){
 
         var m = ((y2 - y1)/(x2  - x1));
-        b = (-1) * ((m * x2) - y2);
         if (!isFinite(m)){
+            //this is for vertical lines
             m = 0;
             x = x1;
             for (b = y1; b < y2; b++){
@@ -107,6 +109,7 @@ $(document).ready(function() {
             }
         }
         else {
+            b = (-1) * ((m * x2) - y2);
             for (x = x1; x < x2; x++){
 
                 var y = Math.round((m*x) + b);
